@@ -14,18 +14,28 @@ namespace Full_GRASP_And_SOLID.Library
         File
     }
 
-    public class AllInOnePrinter
+
+    public interface AllInOnePrinter
     {
-        public void PrintRecipe(Recipe recipe, Destination destination)
+        void PrintRecipe(Recipe recipe);
+    }
+
+    public class FilePrinter : AllInOnePrinter
+    {
+        public void PrintRecipe(Recipe recipe)
         {
-            if (destination == Destination.Console)
-            {
-                Console.WriteLine(recipe.GetTextToPrint());
-            }
-            else
-            {
-                File.WriteAllText("Recipe.txt", recipe.GetTextToPrint());
-            }
+            File.WriteAllText("Recipe.txt", recipe.GetTextToPrint());
         }
     }
+
+    public class ConsolePrinter : AllInOnePrinter
+    {
+        public void PrintRecipe(Recipe recipe)
+        {
+            Console.WriteLine(recipe.GetTextToPrint());
+        }
+    }
+
+
+
 }
